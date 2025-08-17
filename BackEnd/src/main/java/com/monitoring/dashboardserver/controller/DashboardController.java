@@ -14,6 +14,9 @@ import com.monitoring.dashboardserver.dto.RealtimeMetricsResponseDto;
 import com.monitoring.dashboardserver.dto.SystemInfoResponseDto;
 import com.monitoring.dashboardserver.service.DashboardService;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -61,4 +64,16 @@ public class DashboardController {
         .build();
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/{serviceId}/metrics")
+    public ResponseEntity<CommonResponseDto<Void>> saveMetrics (@PathVariable String serviceId, @RequestBody RealtimeMetricsResponseDto metricsResponseDto) {
+        // 1. 서비스에게 데이터 저장을 요청
+        dashboardService.saveRealTimeMetrics(serviceId, metricsResponseDto);        
+        CommonResponseDto<Void> response = CommonResponseDto.<Void>builder()
+        .code("201")
+        .message("Success")
+        .build(); 
+        return ResponseEntity.status(201).body(response);
+    }
+    
 }

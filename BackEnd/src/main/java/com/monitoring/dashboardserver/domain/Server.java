@@ -1,7 +1,12 @@
 package com.monitoring.dashboardserver.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +24,9 @@ public class Server {
     private Integer totalCpuCores;
     private Long totalMemoryBytes;
     private Long totalDiskBytes;
+
+    @OneToMany(mappedBy = "server", cascade = CascadeType.ALL)
+    private List<MetricHistory> metricHistories = new ArrayList<>();
 
     @Builder
     public Server(String serviceId, String serviceName, String os, Integer totalCpuCores, Long totalMemoryBytes, Long totalDiskBytes) {

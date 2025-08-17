@@ -47,7 +47,7 @@ export default function ServerStatus( {server} ) {
     const diskUsageGB = ((metrics?.usedDiskBytes ?? 0)  / (1024 ** 3)).toFixed(2);
     const diskTotalGB = ((info?.totalDiskBytes ?? 0)  / (1024 ** 3)).toFixed(2);
 
-    const cpuUsageFormatted = ((metrics?.cpuUsagePercent).toFixed(2));
+    const cpuUsageFormatted = ((metrics?.cpuUsagePercent ?? 0).toFixed(2));
 
     // 화면에 보여주기
     return (
